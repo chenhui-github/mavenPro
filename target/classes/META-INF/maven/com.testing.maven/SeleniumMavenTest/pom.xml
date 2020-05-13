@@ -28,6 +28,23 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.141.59</version>
 		</dependency>
-
 	</dependencies>
+	<!-- 由于maven项目创建时用的默认编译环境是1.5，而switch(String)的方法，在java1.7版本之后才支持 -->
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArgs>
+						<arg>-Xlint:unchecked</arg>
+						<arg>-Xlint:deprecation </arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>
