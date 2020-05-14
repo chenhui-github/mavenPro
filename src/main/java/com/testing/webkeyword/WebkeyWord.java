@@ -19,6 +19,7 @@ public class WebkeyWord {
 	// 成员变量webdriver，让每一个方法需要使用时都用同一个driver对象来进行操作，都在同一个浏览器中进行操作。
 	// 避免外部程序对driver进行修改，可以声明为私有对象。
 	public  WebDriver driver = null;
+//	private  WebDriver driver = null;
 
 	/**
 	 * 不同的浏览器类型都需要完成driver的实例化操作，因此在封装浏览器启动方法时，可以用一个变量来进行浏览器driver对象实例化的类型选择

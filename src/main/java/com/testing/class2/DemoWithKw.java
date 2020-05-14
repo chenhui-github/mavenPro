@@ -9,9 +9,11 @@ public class DemoWithKw {
 		WebkeyWord web=new WebkeyWord();
 		web.openBrowser("chrome");
 		web.visitWeb("https://www.baidu.com");
+//		web.driver.findElement(by.)
 		System.out.println(web.getTitle());
 //		这一句会出现异常，没有name属性为s的元素
-		web.inputAndSubmitByName("s", "cheese!");
+		web.inputAndSubmitByName("wd", "cheese!");
+//		web.inputAndSubmitByName("s", "cheese!");
 		//这一句汇报异常，预期等待事件没有发生。
 		web.explicitlyWaitTitle();
 		System.out.println(web.getTitle());
