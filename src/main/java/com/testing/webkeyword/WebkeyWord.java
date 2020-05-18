@@ -36,6 +36,7 @@ public class WebkeyWord {
 			driver = ie.getdriver();
 			//隐式等待，设定最长的等待时间为10秒，在10秒内如果进行driver.findelement操作，则会等待元素能够被定位，如果10秒内能被定位了，继续下一步操作
 			//如果超过10秒，超时报错。
+			//隐式等待的缺点，不能定义更多的条件
 			driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			break;
 		case "chrome":
@@ -99,6 +100,7 @@ public class WebkeyWord {
 		}
 	}
 	
+	//通过Xpath定位元素
 	public void input(String xpath,String content) {
 		WebElement ele=driver.findElement(By.xpath(xpath));
 		//通过clear方法完成输入框中的清理
@@ -118,7 +120,7 @@ public class WebkeyWord {
 		
 	}
 	
-	
+	//获取网页标题
 	public String getTitle() {
 		try {
 			String title = driver.getTitle();
@@ -132,8 +134,9 @@ public class WebkeyWord {
 
 	/**
 	 * 显式等待，指定一个最长的等待时间，在这个时间内反复地确认预期的事件是否发生了，如果发生了，则结束等待，继续执行，如果超时还未发生，则报错。
-	 * 这个方法的实际用途是等待标题编程以cheese开头。
-	 * 
+	 * 这个方法的实际用途是等待标题编程以cheese开头。  
+	 * 该方法用的不太多
+	 * ExpectedCondition
 	 */
 	public void explicitlyWaitTitle() {
 		// 设定等待的事件，多少秒会超时。这里是10秒
@@ -161,13 +164,20 @@ public class WebkeyWord {
 	}
 	
 	/**
-	 * 等待某个元素定位表达式能够在页面中定位到一个元素
+	 * 显式等待，等待某个元素定位表达式能够在页面中定位到一个元素  
 	 * @param xpathExp 等待的元素的定位表达式。
+	 * new ExpectedCondition 方式可以编写自己等待的事件
+	 * 该方法不建议使用，可能会与隐式等待 产生重复等待或者冲突。
+	 * 注意：在进行显式等待的设置时，一般只对元素定位事件以外一些特殊事件进行定义，尽量不要在使用隐式等待的同时，
+	 * 再加上一个等待元素能够被定位的显式等待（因为没意义），即使一定要用，最好时长设为一致。
 	 */
+	//等待都是为了让页面能够加载完，以便进行下一步操作，所以等待是有必要的
+	//例如需要点击Cheese翻译，但是如果打开页面，页面还没有加载完就去点击Cheese翻译，就会报错的，所以等待元素能被定位到是有必要的
 	public void expllicitlyWaitEle(String xpathExp) {
 		try {
 			WebDriverWait ewait=new WebDriverWait(driver, 10);
 			ewait.until(new ExpectedCondition<WebElement>() {
+				//等待某一个元素是否出现了
 				public WebElement apply(WebDriver d) {
 					return d.findElement(By.xpath(xpathExp));
 				}
@@ -179,8 +189,10 @@ public class WebkeyWord {
 	}
 	
 	/**
-	 * 显式等待还可以使用selenium已经预定义好的一些等待条件。
+	 * 显式等待，还可以使用selenium已经预定义好的一些等待条件。 
 	 * @param xpathExp
+	 * ExpectedConditions类中已经预定义好的静态方法指定等待事件
+	 * 该方法比较常用，也足够使用了。
 	 */
 	public void explicitlyWaitEleLoc(String xpathExp) {
 		try {
@@ -194,10 +206,10 @@ public class WebkeyWord {
 	}
 	
 
-	
+
 	
 	/**
-	 * 线程休眠，最死板的等待，没有结束等待的条件，固定等待指定的时长。通常用于一些不确定原因的等待。
+	 * 强制等待：线程休眠，最死板的等待，没有结束等待的条件，固定等待指定的时长。通常用于一些不确定原因的等待。
 	 */
 	public void halt(String waitTime) {
 		try {

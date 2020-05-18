@@ -1,4 +1,4 @@
-package chen.test;
+package chen.test1;
 
 import java.security.PublicKey;
 
@@ -33,7 +33,7 @@ public class ChromDemo {
 		el.sendKeys("Cheese");
 		//6.提交元素
 		el.submit();
-		
+		//获取网页标题，并在控制台输出标题
 		System.out.println("This Page Title is "+driver.getTitle());
 		//内部类
 		(new WebDriverWait(driver, 10)).until(new ExpectedCondition<Boolean>(){

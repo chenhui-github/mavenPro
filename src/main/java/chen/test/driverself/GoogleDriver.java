@@ -7,7 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class GoogleDriver {
 	WebDriver driver=null;
 	
-	private GoogleDriver(String driverPath) {
+	public GoogleDriver(String driverPath) {
 		
 		System.setProperty("webdriver.chrome.driver", driverPath);
 		//谷歌浏览器 参数对象
