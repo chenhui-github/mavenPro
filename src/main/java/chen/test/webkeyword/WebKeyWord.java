@@ -5,11 +5,13 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import chen.test.driverself.FirefDriver;
@@ -163,7 +165,9 @@ public class WebKeyWord {
 	public void halt(String waitTime) {
 		int time=Integer.parseInt(waitTime);
 		try {
-			Thread.sleep(time);
+			//线程休眠，让程序停止一段时间，这个时间是固定的，没有任何条件来解除等待。
+			//乘以1000转换为等待秒数。
+			Thread.sleep(time*1000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -234,9 +238,11 @@ public class WebKeyWord {
 	public void switchIframe(String FrameName) {
 		try {
 			driver.switchTo().frame(FrameName);
+			System.out.println("切换Iframe成功！");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("切换Iframe失败");
 		}
 	}
 	//如果Iframe没有id、name属性，需要使用元素通过xpath来定位
@@ -244,10 +250,83 @@ public class WebKeyWord {
 		try {
 			WebElement frameElemen=driver.findElement(By.xpath(xPath));
 			driver.switchTo().frame(frameElemen);
+			System.out.println("切换Iframe成功！！");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("切换Iframe失败！！");
+		}
+	}
+	
+	//通过js滚动到最低端
+	public void scrollToEnd() {
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+	}
+	//通过js脚本拼接，实现滚动到指定的y坐标位置
+	//@yAxis
+	public void scrollVertical(String yAxis) {
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		js.executeScript("window.scrollTo(0,"+yAxis+")");
+	}
+	
+	//带参数的js脚本调用，适用于通过xpath定位到元素然后调用js方法操作
+	//@param cmd js脚本，使用arguments[0].click()这种方式进行参数的调用
+	//@param xPath 传递的参数，通过xpath定位元素。
+	public void runJsWithArg(String cmd,String xPath) {
+		//首先通过xpath定位到一个元素
+		WebElement ele=driver.findElement(By.xpath(xPath));
+		//然后再js执行器执行时，把元素作为参数传进去，然后在js脚本里面通过argument[0]来进行调用。
+		JavascriptExecutor js=(JavascriptExecutor)driver;
+		//
+		js.executeScript(cmd, ele);
+		
+	}
+	/*
+	 * 
+	 */
+	public String getJsReturnWithArg(String cmd,String xPath) {
+		//首先通过xpath定位到一个元素
+				WebElement ele=driver.findElement(By.xpath(xPath));
+				//然后再js执行器执行时，把元素作为参数传进去，然后在js脚本里面通过argument[0]来进行调用。
+				JavascriptExecutor js=(JavascriptExecutor)driver;
+				//在执行js脚本时，加上return,将结果进行返回
+				String result=	js.executeScript("return "+cmd, ele).toString();
+			  return result;
+	}
+	/*
+	 * 基于select元素中的option选项文本内容进行选择
+	 * @param xpath
+	 * @prame visibleText
+	 */
+	public void selectByText(String xpath,String visibleText) {
+		try {
+			//通过select类的构造方法，完成将元素转换成select对象的过程
+			Select sel=new Select(driver.findElement(By.xpath(xpath)));
+			sel.selectByVisibleText(visibleText);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	/*
+	 * 通过select元素中的option选项的value属性进行选择
+	 * @param xpath
+	 * @prame optionValue
+	 */
+	public void selectByValue(String xpath,String optionValue) {
+		try {
+			//通过select类的构造方法，完成将元素转换成select对象的过程
+			Select sel=new Select(driver.findElement(By.xpath(xpath)));
+			sel.selectByValue(optionValue);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	//文件上传的方法
+	public void uploadFile(String xpath,String filePath) {
+		input(xpath,filePath);
 	}
 	
 	//断言：基于获取到的元素的文本内容，判断用例执行是否成功
@@ -262,4 +341,13 @@ public class WebKeyWord {
 		}
 	}
 	
+	//切入iframe之后，调用该方法，切回最外层的html
+	public void switchToRoot() {
+		try {
+			driver.switchTo().defaultContent();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
