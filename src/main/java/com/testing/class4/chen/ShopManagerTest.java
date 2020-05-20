@@ -8,17 +8,38 @@ public class ShopManagerTest {
 		// TODO Auto-generated method stub
 		WebKeyWord web=new WebKeyWord();
 		web.openBrowser("chrome");
+		//后台登陆页面的登陆测试
+		adminLogin(web);
+		
+		String goodsName="VIP05第5课测试商品44";
+		//对于商城后台商品页面进行添加商品的功能测试。
+		addGoods(web,goodsName);
+		web.halt("8");
+		//断言
+		web.assertPageContains(goodsName);
+		web.halt("30");
+		web.closeBrowser();
+		
+		
+	}
+	//针对于首页这个页面进行的测试，所有的需要的定位元素和操作方法都在这里
+	public static void adminLogin(WebKeyWord web) {
 		web.visitWeb("http://testingedu.com.cn:8000/index.php/Admin/Admin/login");
 		web.input("//input[@name='username']", "admin");
 		web.input("//input[@name='password']", "123456");
+		//验证码随意输入
 		web.input("//input[@name='vertify']", "1");
 		web.click("//input[@name='submit']");
+	}
+	//商城页面中的添加商品功能的测试 用到的元素和方法都在这了。
+	public static void addGoods(WebKeyWord web,String goodsName) {
 		//点击商城
 		web.click("//a[text()='商城']");
 		//切换到iframe
 		web.switchIframe("workspace");
+		web.halt("8");
 		web.click("//span[text()='添加商品']");
-		web.input("//input[@name='goods_name']", "chen测试商品");
+		web.input("//input[@name='goods_name']", goodsName);
 		//下拉框选择
 //		web.selectByText("//select[@name='cat_id']", "电脑");
 		web.selectByText("(//select)[1]", "电脑");
@@ -61,12 +82,9 @@ public class ShopManagerTest {
 		web.switchToRoot();
 		//然后在切到网页右侧的iframe中
 		web.switchIframe("workspace");
+		web.halt("5");
 		//确认提交//a[text()='确认提交']  //a[@id='submit']
 		web.click("//a[@id='submit']");
-		web.halt("30");
-		web.closeBrowser();
-		
-		
 	}
 
 }

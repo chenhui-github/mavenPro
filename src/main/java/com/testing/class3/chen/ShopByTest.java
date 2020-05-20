@@ -6,19 +6,29 @@ import org.openqa.selenium.interactions.Actions;
 
 import chen.test.webkeyword.WebKeyWord;
 
-public class ShowByTest {
+public class ShopByTest {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		WebKeyWord web=new WebKeyWord();
 		//选择谷歌浏览器
 		web.openBrowser("chrome");
+		shopLogin(web);
+		//强制等待1秒钟
+		web.halt("1");
+		//购买商品
+		buyGoods(web);
+		//断言 订单提交成功
+		web.assertEleContainsText("//div[@class='erhuh']/h3", "提交成功");
+	}
+	public static void shopLogin(WebKeyWord web) {
 		//打开网址
 		web.visitWeb("http://testingedu.com.cn:8000");
 		//登陆
 		web.shopLogin("791077118@qq.com", "123456");
-		//强制等待1秒钟
-		web.halt("1");
+	}
+	//购买商品的页面功能方法。
+	public static void buyGoods(WebKeyWord web) {
 		//点击返回商城首页
 		web.click("//a[text()='返回商城首页']");
 		//强制等待1秒钟
@@ -57,8 +67,6 @@ public class ShowByTest {
 		//点击 提交按钮
 		//基于传参的方式，先通过xpath定位到元素，然后用arguments[0]调用，进行js脚本执行
 		web.runJsWithArg("arguments[0].click()", "//button[@type='submit']");
-		//断言 订单提交成功
-		web.assertEleContainsText("//div[@class='erhuh']/h3", "提交成功");
 	}
 
 

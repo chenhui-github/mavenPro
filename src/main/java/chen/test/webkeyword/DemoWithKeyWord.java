@@ -8,7 +8,7 @@ public class DemoWithKeyWord {
 		ww.openBrowser("firefox");//打开火狐浏览器
 		ww.visitWeb("http://www.baidu.com");
 		System.out.println("titile1---"+ww.getTitle());
-		ww.inputAndSubmitByName("s", "cheese");
+		ww.inputAndSubmitByName("wd", "cheese");
 		//显式等待
 		ww.explicitlyWaitTitle();
 		System.out.println("titile2---"+ww.getTitle());
