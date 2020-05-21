@@ -4,11 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.chrome.ChromeDriver;
 //这是一个 专门生成谷歌浏览器 驱动实例（driver）的类。
-public class GoogleDriver {
+public class GoogleDriver { // Chrome浏览器驱动类
+	/*
+	 * 该类是创建谷歌浏览器的驱动实例。
+	 * 给chen.test.webkeyword.java类中的openBrowser（）调用的。
+	 */
 	WebDriver driver=null;
 	
 	public GoogleDriver(String driverPath) {
-		
+		//设置chrome谷歌浏览器的路径
 		System.setProperty("webdriver.chrome.driver", driverPath);
 		//谷歌浏览器 参数对象
 		ChromeOptions option=new ChromeOptions();

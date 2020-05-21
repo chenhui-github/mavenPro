@@ -11,6 +11,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class IEDriver { // IE浏览器驱动类
+	/*
+	 * 该类是创建IE浏览器的驱动实例。
+	 * 给com.testing.webKeyword.java类中的openBrowser（）调用的。
+	 */
+	
 	public WebDriver driver=null;
 	
 	//webdriver连接启动浏览器时，启动的服务。

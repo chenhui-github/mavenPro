@@ -9,7 +9,11 @@ import org.openqa.selenium.ie.InternetExplorerDriverService;
 import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class IeDriver {
+public class IeDriver {// IE浏览器驱动类
+	/*
+	 * 该类是创建IE浏览器的驱动实例。
+	 * 给chen.test.webkeyword.java类中的openBrowser（）调用的。
+	 */
 	public WebDriver driver=null;
 	//webdriver连接启动浏览器时，启动的服务。
 	public InternetExplorerDriverService service=null;
@@ -47,7 +51,7 @@ public class IeDriver {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("-----------log--error：创建driver失败！！");
+			System.out.println("-----------log--error：创建IE的driver失败！！");
 		}
 	}
 	//用于外部调用 ，获取driver实例的方法

@@ -7,7 +7,12 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.firefox.FirefoxProfile;
 //该类是 专门 用于生成 火狐浏览器的driver实例的
+//Firefox浏览器驱动类
 public class FirefDriver {
+	/*
+	 * 该类是创建火狐浏览器的驱动实例。
+	 * 给chen.test.webkeyword.java类中的openBrowser（）调用的。
+	 */
 	WebDriver driver=null;
 	
 	public FirefDriver(String propath,String driverPath) {

@@ -21,8 +21,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.google.common.io.Files;
-import com.testing.common.chen.AutoLogger;
 
+import chen.test.common.AutoLogger;
 import chen.test.driverself.FirefDriver;
 import chen.test.driverself.GoogleDriver;
 import chen.test.driverself.IeDriver;

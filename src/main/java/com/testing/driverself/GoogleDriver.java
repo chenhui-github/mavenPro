@@ -12,6 +12,11 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class GoogleDriver { // Chrome浏览器驱动类
+	/*
+	 * 该类是创建谷歌浏览器的驱动实例。
+	 * 给com.testing.webKeyword.java类中的openBrowser（）调用的。
+	 */
+	
 	private WebDriver driver = null;
 
 	public GoogleDriver(String driverpath) {

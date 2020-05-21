@@ -10,6 +10,10 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 
 //Firefox浏览器驱动类
 public class FFDriver {
+	/*
+	 * 该类是创建火狐浏览器的驱动实例。
+	 * 给com.testing.webKeyword.java类中的openBrowser（）调用的。
+	 */
 	private WebDriver driver = null;
 	//propath:是指火狐浏览器所安装位置，即火狐浏览器安装根目录
 	//driverpath:是指火狐浏览器驱动（geckodriver.exe）所在的路径
